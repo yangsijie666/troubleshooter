@@ -5,6 +5,7 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
 	"troubleshooter/pkg/pod"
 )
@@ -41,6 +42,14 @@ func init() {
 }
 
 func run(cmd *cobra.Command, args []string) {
+	defer func() {
+		if r := recover(); r != nil {
+			if err, ok := r.(error); ok {
+				fmt.Println("[NoPass] " + err.Error())
+			}
+		}
+	}()
+
 	ts := pod.NewScheduleTroubleShooter(
 		kubeConfigPath,
 		podName,
