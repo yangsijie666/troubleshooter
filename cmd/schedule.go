@@ -6,7 +6,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"troubleshooter/pkg"
+	"troubleshooter/pkg/pod"
 )
 
 // scheduleCmd represents the schedule command
@@ -41,7 +41,7 @@ func init() {
 }
 
 func run(cmd *cobra.Command, args []string) {
-	ts := pkg.NewPodScheduleTroubleShooter(
+	ts := pod.NewScheduleTroubleShooter(
 		kubeConfigPath,
 		podName,
 		podNamespace,
